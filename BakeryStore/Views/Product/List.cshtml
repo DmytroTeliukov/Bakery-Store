@@ -1,0 +1,25 @@
+﻿
+@model IEnumerable<Product>//отримуємо модель
+@{
+    //блок коду на мові С#
+    Layout = null;//null говорить про відсутність шаблону
+}
+<!doctype html>
+<html>
+<head>
+    <meta name="viewport" content="width-device-width" />
+    <title>List</title>
+</head>
+<body>
+    <h2>Всі товари</h2>
+    @{
+        foreach (var product in Model)
+        {
+            <div>
+                <h2>Назва: @product.Title</h2>
+                <p>Ціна: @product.Price.ToString("c")</p>
+            </div>
+        }
+    }
+</body>
+</html>
