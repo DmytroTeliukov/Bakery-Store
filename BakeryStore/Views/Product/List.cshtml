@@ -1,25 +1,29 @@
-﻿
-@model IEnumerable<Product>//отримуємо модель
+﻿@model IEnumerable<Product>
 @{
-    //блок коду на мові С#
-    Layout = null;//null говорить про відсутність шаблону
+    ViewData["Title"] = "Product list";
+    Layout = "_Layout";
 }
-<!doctype html>
-<html>
-<head>
-    <meta name="viewport" content="width-device-width" />
-    <title>List</title>
-</head>
-<body>
-    <h2>Всі товари</h2>
-    @{
-        foreach (var product in Model)
-        {
-            <div>
-                <h2>Назва: @product.Title</h2>
-                <p>Ціна: @product.Price.ToString("c")</p>
-            </div>
+
+<div class="container my-5">
+    <h1 class="text-center">Меню</h1>
+
+    <div class="row my-5">
+        @{
+            foreach (var product in Model)
+            {
+                <div class="col-lg-4 mt-3">
+                    <div style="height: 90%" class="card shadow p-3 mb-5 bg-white rounded">
+                        <img style="width: 100%; height: 300px" src="@product.Photo" alt="@product.Title" class="card-img-top">
+                        <div class="card-body">
+                            <h6 class="card-title">@product.Title</h6>
+                            <a style="  text-decoration: none;" class="text-secondary" asp-controller="Product" asp-action="ListByCategory" asp-route-categoryName="@product.Category.Name">@product.Category.Name</a>
+                            <h6 class="card-subtitle mb-2 text-muted">@product.Price.ToString("c")</h6>
+                            <p>
+                                <a class="btn btn-warning" asp-action="Profile" asp-route-id="@product.Id">Детальніше</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            }
         }
-    }
-</body>
-</html>
+    </div>
