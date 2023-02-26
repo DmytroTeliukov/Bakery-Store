@@ -25,6 +25,14 @@ namespace BakeryStore.Controllers
         }
 
         [HttpGet]
+        public IActionResult Search(String productName)
+        {
+            return View("List", _products.SearchProductsByName(productName));
+        }
+
+
+
+        [HttpGet]
         public IActionResult Profile(int id)
         {
 
