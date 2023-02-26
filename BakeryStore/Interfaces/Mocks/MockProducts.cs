@@ -30,6 +30,11 @@ namespace BakeryStore.Interfaces.Mocks
             return _products.Where(product => product.Category.Name == categoryName);
         }
 
+        public IEnumerable<Product> SearchProductsByName(string productName)
+        {
+            return _products.Where(product => product.Title.Contains(productName));
+        }
+
         private void GenerateData() 
         {
             Product product1 = new Product {
