@@ -1,10 +1,16 @@
-﻿namespace BakeryStore.Models
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace BakeryStore.Models
 {
     public class Product
     {
+        [Key]
         public int Id { get; set; }
         public string Title { get; set; }  
         public string Photo { get; set; }
+
+        [ForeignKey("Category")]
         public int CategoryID { get; set; }
         public virtual Category Category { get; set; }
         public string Description { get; set; }
