@@ -1,16 +1,33 @@
 using BakeryStore.Controllers;
+using BakeryStore.Database;
 using BakeryStore.Interfaces;
 using BakeryStore.Interfaces.Mocks;
+using BakeryStore.Repositories;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using MySqlConnector;
 
 var builder = WebApplication.CreateBuilder(args);
+var mysqlConnection = builder.Configuration.GetConnectionString("MyConnection");
 
-// Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddCors();
+builder.Services.AddDbContext<AppDBContent>(options => 
+options.UseMySql(mysqlConnection, ServerVersion.AutoDetect(mysqlConnection)));
 
-builder.Services.AddScoped<ICategories, MockCategories>();
-builder.Services.AddScoped<IProducts, MockProducts>();
+
+builder.Services.AddScoped<ICategories, CategoryRepository>();
+builder.Services.AddScoped<IProducts, ProductRepository>();
+
 
 var app = builder.Build();
+using (var scope = app.Services.CreateScope())
+{
+    AppDBContent content = scope.ServiceProvider.GetRequiredService<AppDBContent>();
+    DBObjects.Initial(content);
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
