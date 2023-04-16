@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BakeryStore.Migrations
 {
     [DbContext(typeof(AppDBContent))]
-    [Migration("20230303192205_Initial")]
+    [Migration("20230304150735_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
