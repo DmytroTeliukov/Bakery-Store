@@ -1,0 +1,73 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Profile";
+    ViewData["ActivePage"] = ManageNavPages.Index;
+}
+
+<div class="card shadow border-0 mt-4">
+    <div class="card-header bg-dark bg-gradient m-lg-0 py-4">
+        <div class="row">
+        <div class="col-12 text-center">
+                <h2 class="py-2 text-white">Профіль</h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card-body p-4">
+    <div class="row pt-3">
+        <div class="col-md-12">
+            <form id="profile-form" class="row" method="post">
+
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-floating mb-3 col-md-6">
+                    <input asp-for="Input.Lastname" class="form-control" autocomplete="new-password" aria-required="true" />
+                    <label asp-for="Input.Lastname" class="ms-2 text-muted"></label>
+                    <span asp-validation-for="Input.Lastname" class="text-danger"></span>
+                </div>
+                <div class="form-floating mb-3 col-md-6">
+                    <input asp-for="Input.Firstname" class="form-control" autocomplete="new-password" aria-required="true" />
+                    <label asp-for="Input.Firstname" class="ms-2 text-muted"></label>
+                    <span asp-validation-for="Input.Firstname" class="text-danger"></span>
+                </div>
+                <div class="form-floating mb-3 col-md-6">
+                    <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" />
+                    <label asp-for="Input.Email" class="ms-2 text-muted"></label>
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
+                <div class="form-floating mb-3 col-md-6">
+                    <input asp-for="Input.PhoneNumber" class="form-control" autocomplete="new-password" aria-required="true" />
+                    <label asp-for="Input.PhoneNumber" class="ms-2 text-muted"></label>
+                    <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+                </div>
+                <div class="form-floating mb-3 col-md-4">
+                    <input asp-for="Input.City" class="form-control" autocomplete="new-password" aria-required="true" />
+                    <label asp-for="Input.City" class="ms-2 text-muted"></label>
+                    <span asp-validation-for="Input.City" class="text-danger"></span>
+                </div>
+                <div class="form-floating mb-3 col-md-4">
+                    <input asp-for="Input.StreetAddress" class="form-control" autocomplete="new-password" aria-required="true" />
+                    <label asp-for="Input.StreetAddress" class="ms-2 text-muted"></label>
+                    <span asp-validation-for="Input.StreetAddress" class="text-danger"></span>
+                </div>
+                <div class="form-floating mb-3 col-md-4">
+                    <input asp-for="Input.PostalCode" class="form-control" autocomplete="new-password" aria-required="true" />
+                    <label asp-for="Input.PostalCode" class="ms-2 text-muted"></label>
+                    <span asp-validation-for="Input.PostalCode" class="text-danger"></span>
+                </div>
+                <button id="update-profile-button" type="submit" class="w-100 btn btn-lg btn-warning">Зберегти зміни</button>
+                <br />
+                <a id="change-password" asp-page="./ChangePassword" class="w-100 btn btn-lg btn-outline-warning">Змінити пароль</a>
+                <br />
+                <a id="delete-profile" asp-page="./DeletePersonalData" class="w-100 btn btn-lg btn-outline-danger">Видалити пароль</a>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

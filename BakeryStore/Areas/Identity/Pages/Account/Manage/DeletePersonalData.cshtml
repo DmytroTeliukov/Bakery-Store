@@ -1,0 +1,45 @@
+﻿@page
+@model DeletePersonalDataModel
+@{
+    ViewData["Title"] = "Delete Personal Data";
+    ViewData["ActivePage"] = ManageNavPages.PersonalData;
+}
+
+<div class="card shadow border-0 mt-4">
+    <div class="card-header bg-dark bg-gradient m-lg-0 py-4">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="py-2 text-white">Видалення профілю</h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="alert alert-warning" role="alert">
+    <p>
+        <strong>Ці дані будуть видалені назавжди та не буде можливості відновити їх.</strong>
+    </p>
+</div>
+
+<div class="card-body p-4">
+    <div class="row pt-3">
+        <div class="col-md-12">
+    <form id="delete-user" class="row" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        @if (Model.RequirePassword)
+        {
+            <div class="form-floating mb-3 col-md-12">
+                <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" />
+                <label asp-for="Input.Password" class="form-label"></label>
+                <span asp-validation-for="Input.Password" class="text-danger"></span>
+            </div>
+        }
+        <button class="w-100 btn btn-lg btn-danger" type="submit">Видалити профіль</button>
+    </form>
+    </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
