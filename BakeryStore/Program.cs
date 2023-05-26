@@ -27,8 +27,18 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>()
 
 builder.Services.AddScoped<ICategories, CategoryRepository>();
 builder.Services.AddScoped<IProducts, ProductRepository>();
+builder.Services.AddScoped<IUsers, UserRepository>();
 builder.Services.AddScoped<IEmailSender, MockEmailSender>();
 builder.Services.AddRazorPages();
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+builder.Services.AddScoped(sp => ShopCart.GetCart(sp));
+builder.Services.AddMvc(mvcOtions =>
+{
+    mvcOtions.EnableEndpointRouting = false;
+});
+builder.Services.AddMemoryCache();
+builder.Services.AddSession();
+
 
 
 var app = builder.Build();
@@ -45,6 +55,8 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+app.UseSession();
+
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

@@ -3,7 +3,10 @@
     ViewData["Title"] = "Product Profile";
     Layout = "_Layout";
 }
+@using Microsoft.AspNetCore.Identity
 
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
 
     <!-- Page Content -->
 <div class="container my-5 shadow p-3 mb-5 bg-white rounded">
@@ -22,6 +25,13 @@
                 <h3>Вага</h3>
             <p class="lead">@Model.Weight кг</p>
 
+
+            
+            <form class="row" method="post">
+                <input type="number" value="1" class="form-control text-end"/>
+                <button class="btn btn-warning">Додати в корзинку</button>
+            </form>
+            
             </div>
         </div>
         <div class="row my-5">

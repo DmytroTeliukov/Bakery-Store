@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BakeryStore.Migrations
 {
     [DbContext(typeof(AppDBContent))]
-    [Migration("20230401131050_ChangeUserTable")]
-    partial class ChangeUserTable
+    [Migration("20230417081147_AddOrderModel")]
+    partial class AddOrderModel
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -39,6 +39,30 @@ namespace BakeryStore.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Category");
+                });
+
+            modelBuilder.Entity("BakeryStore.Models.Order", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Ordered")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Order");
                 });
 
             modelBuilder.Entity("BakeryStore.Models.Product", b =>
@@ -94,6 +118,32 @@ namespace BakeryStore.Migrations
                     b.HasIndex("CategoryID");
 
                     b.ToTable("Product");
+                });
+
+            modelBuilder.Entity("BakeryStore.Models.ShopCartItem", b =>
+                {
+                    b.Property<string>("ShopCartId")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Price")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("ShopCartId");
+
+                    b.HasIndex("OrderId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("ShopCartItem");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -320,6 +370,17 @@ namespace BakeryStore.Migrations
                     b.HasDiscriminator().HasValue("User");
                 });
 
+            modelBuilder.Entity("BakeryStore.Models.Order", b =>
+                {
+                    b.HasOne("BakeryStore.Models.User", "user")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("user");
+                });
+
             modelBuilder.Entity("BakeryStore.Models.Product", b =>
                 {
                     b.HasOne("BakeryStore.Models.Category", "Category")
@@ -329,6 +390,25 @@ namespace BakeryStore.Migrations
                         .IsRequired();
 
                     b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("BakeryStore.Models.ShopCartItem", b =>
+                {
+                    b.HasOne("BakeryStore.Models.Order", "Order")
+                        .WithMany("Cart")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BakeryStore.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Order");
+
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -385,6 +465,11 @@ namespace BakeryStore.Migrations
             modelBuilder.Entity("BakeryStore.Models.Category", b =>
                 {
                     b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("BakeryStore.Models.Order", b =>
+                {
+                    b.Navigation("Cart");
                 });
 #pragma warning restore 612, 618
         }

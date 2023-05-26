@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BakeryStore.Migrations
 {
     [DbContext(typeof(AppDBContent))]
-    [Migration("20230401081621_ExtendIdentityUser")]
-    partial class ExtendIdentityUser
+    [Migration("20230416191550_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -94,6 +94,24 @@ namespace BakeryStore.Migrations
                     b.HasIndex("CategoryID");
 
                     b.ToTable("Product");
+                });
+
+            modelBuilder.Entity("BakeryStore.Models.ShopCartItem", b =>
+                {
+                    b.Property<string>("ShopCartId")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<int>("Price")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ShopCartId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("ShopCartItem");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -243,12 +261,10 @@ namespace BakeryStore.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("varchar(128)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("ProviderKey")
-                        .HasMaxLength(128)
-                        .HasColumnType("varchar(128)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("longtext");
@@ -285,12 +301,10 @@ namespace BakeryStore.Migrations
                         .HasColumnType("varchar(255)");
 
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("varchar(128)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(128)
-                        .HasColumnType("varchar(128)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("Value")
                         .HasColumnType("longtext");
@@ -318,9 +332,6 @@ namespace BakeryStore.Migrations
                     b.Property<string>("PostalCode")
                         .HasColumnType("longtext");
 
-                    b.Property<string>("State")
-                        .HasColumnType("longtext");
-
                     b.Property<string>("StreetAddress")
                         .HasColumnType("longtext");
 
@@ -336,6 +347,17 @@ namespace BakeryStore.Migrations
                         .IsRequired();
 
                     b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("BakeryStore.Models.ShopCartItem", b =>
+                {
+                    b.HasOne("BakeryStore.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
