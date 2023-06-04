@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BakeryStore.Models
 {
-    [PrimaryKey("ShopCartId, ProductId")]
+    [PrimaryKey("ShopCartId", "ProductId")]
     public class ShopCartItem
     {
         public string ShopCartId { get; set; }

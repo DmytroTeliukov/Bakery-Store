@@ -1,0 +1,41 @@
+﻿@model BakeryStore.Views.Cart.CartViewModel
+
+<h2 class="mt-2">Кошик</h2>
+
+@if (Model.ShopItems.Count == 0)
+{
+    <p>Ваш кошик порожній!</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Продукт</th>
+                <th>Ціна</th>
+                <th>Кількість</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.ShopItems)
+            {
+                <tr>
+                    <td>@item.Product.Title</td>
+                    <td>@item.Product.Price.ToString("C")</td>
+                    <td>@item.Quantity</td>
+                    <td>
+                        <form asp-action="DeleteFromCart" asp-route-id="@item.ProductId" method="post" onsubmit="return confirm('Ви впевнені що хочете видалити товар з кошику?')">
+                            <input type="hidden" name="_method" value="delete" />
+                            <input type="hidden" name="id" value="@item.ProductId" />
+                            <button type="submit" class="btn btn-danger">Remove</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <p>Загальна сума: @Model.TotalPrice.ToString("C")</p>
+}
+
+<a href="@Url.Action("List", "Product")" class="btn btn-primary">До каталогу</a>

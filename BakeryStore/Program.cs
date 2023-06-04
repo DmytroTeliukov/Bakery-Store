@@ -26,6 +26,7 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>()
 
 
 builder.Services.AddScoped<ICategories, CategoryRepository>();
+builder.Services.AddScoped<IShopCart, ShopCartRepository>();
 builder.Services.AddScoped<IProducts, ProductRepository>();
 builder.Services.AddScoped<IUsers, UserRepository>();
 builder.Services.AddScoped<IEmailSender, MockEmailSender>();
@@ -38,6 +39,12 @@ builder.Services.AddMvc(mvcOtions =>
 });
 builder.Services.AddMemoryCache();
 builder.Services.AddSession();
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
+    options.LoginPath = $"/Identity/Account/Login";
+    options.LogoutPath = $"/Identity/Account/Logout";
+});
 
 
 
