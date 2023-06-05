@@ -61,6 +61,7 @@ namespace BakeryStore.Controllers
                 order.OrderDetails.Add(detail);
                 totalPrice += (int)(detail.Price * detail.Quantity);
             }
+            order.TotalPrice = totalPrice;
 
             _order.Create(order);
             _shopCart.Clear();
