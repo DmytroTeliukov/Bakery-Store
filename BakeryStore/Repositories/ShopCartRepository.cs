@@ -32,7 +32,8 @@ public class ShopCartRepository : IShopCart
             {
                 ShopCartId = shopCartId,
                 ProductId = product.Id,
-                Quantity = quantity
+                Quantity = quantity,
+                Price = (int)product.Price
             };
             _appDBContent.ShopCartItem.Add(newItem);
         }

@@ -12,6 +12,6 @@ namespace BakeryStore.Models
         [Range(1, int.MaxValue)]
         public int Quantity { get; set; }
 
-        public float Price { get; set; }
+        public decimal Price { get; set; }
     }
 }

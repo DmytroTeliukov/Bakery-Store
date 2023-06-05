@@ -25,6 +25,7 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>()
     .AddDefaultTokenProviders();
 
 
+builder.Services.AddScoped<IOrder, OrderRepository>();
 builder.Services.AddScoped<ICategories, CategoryRepository>();
 builder.Services.AddScoped<IShopCart, ShopCartRepository>();
 builder.Services.AddScoped<IProducts, ProductRepository>();

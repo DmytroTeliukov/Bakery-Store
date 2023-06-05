@@ -1,51 +1,25 @@
 ﻿using BakeryStore.Database;
 using BakeryStore.Interfaces;
 using BakeryStore.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace BakeryStore.Repositories
 {
-    public class OrderRepository : IOrders
+    public class OrderRepository : IOrder
     {
-        private readonly AppDBContent appDBContent;
+        private readonly AppDBContent _context;
         private readonly ShopCart _shopCart;
-        public OrderRepository(AppDBContent appDBContent, ShopCart
-       shopCart)
+
+        public OrderRepository(AppDBContent context, ShopCart shopCart)
         {
-            this.appDBContent = appDBContent;
-            this._shopCart = shopCart;
+            _context = context;
+            _shopCart = shopCart;
         }
 
-        public void CreateOrder(Models.Order order)
+        public void Create(Order order)
         {
-            order.Ordered = DateTime.Now;
-            order.Status = "ORDERED";
-            
-            
-            appDBContent.Order.Add(order);
-            appDBContent.SaveChanges();
-            var cart = _shopCart.ShopItems;
-            order.TotalPrice = cart.Select(x => x.Price).Sum();
-
-
-            AddProductsToOrder(cart, order);
-            
-            appDBContent.SaveChanges();
-        }
-
-        private void AddProductsToOrder(List<ShopCartItem> cart, Models.Order order)
-        {
-            foreach (var el in cart)
-            {
-                var orderDetail = new OrderDetail()
-                {
-                    ProductId = el.ProductId,
-                    OrderId = order.Id,
-                    Price = el.Price,
-                    Quantity = el.Quantity
-                };
-                appDBContent.OrderDetails.Add(orderDetail);
-            }
+            _context.Order.Add(order);
+            _context.SaveChanges();
         }
     }
-
 }

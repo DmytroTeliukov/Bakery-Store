@@ -28,7 +28,7 @@ else
                         <form asp-action="DeleteFromCart" asp-route-id="@item.ProductId" method="post" onsubmit="return confirm('Ви впевнені що хочете видалити товар з кошику?')">
                             <input type="hidden" name="_method" value="delete" />
                             <input type="hidden" name="id" value="@item.ProductId" />
-                            <button type="submit" class="btn btn-danger">Remove</button>
+                            <button type="submit" class="btn btn-danger">Видалити</button>
                         </form>
                     </td>
                 </tr>
@@ -36,6 +36,16 @@ else
         </tbody>
     </table>
     <p>Загальна сума: @Model.TotalPrice.ToString("C")</p>
+    @if (User.Identity.IsAuthenticated)
+    {
+        <form asp-action="Checkout" asp-controller="Order" method="post">
+            <button type="submit">Створити замоленн</button>
+        </form>
+    }
+    else
+    {
+        <p>Будь ласка, авторизуйтесь, щоб створити замовлення.</p>
+    }
 }
 
 <a href="@Url.Action("List", "Product")" class="btn btn-primary">До каталогу</a>
