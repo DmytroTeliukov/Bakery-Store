@@ -4,6 +4,7 @@ namespace BakeryStore.Models
 {
     public class OrderDetail
     {
+        [Key]
         public int OrderId { get; set; }
         public virtual Order Order { get; set; }
         public int ProductId { get; set; }
@@ -11,6 +12,6 @@ namespace BakeryStore.Models
         [Range(1, int.MaxValue)]
         public int Quantity { get; set; }
 
-        public float Price { get; set; }
+        public decimal Price { get; set; }
     }
 }

@@ -26,6 +26,15 @@
 
   <ItemGroup>
     <Folder Include="Migrations\" />
+    <Folder Include="Views\ShopCart\" />
+    <Folder Include="Views\Order\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="Controllers\BasketController.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Views\ShopCart\" />
+    <None Remove="Views\Order\" />
+  </ItemGroup>
 </Project>

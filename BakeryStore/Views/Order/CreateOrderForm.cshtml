@@ -1,0 +1,61 @@
+﻿@model BakeryStore.ViewModels.OrderViewModel
+
+<h2>Create Order</h2>
+
+@using (Html.BeginForm("Checkout", "Order", FormMethod.Post))
+{
+    <div class="form-group">
+        @Html.LabelFor(model => model.Status, new { @class = "control-label" })
+        @Html.TextBoxFor(model => model.Status, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Ordered, new { @class = "control-label" })
+        @Html.TextBoxFor(model => model.Ordered, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Ordered, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.UserId, new { @class = "control-label" })
+        @Html.TextBoxFor(model => model.UserId, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.TotalPrice, new { @class = "control-label" })
+        @Html.TextBoxFor(model => model.TotalPrice, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.TotalPrice, "", new { @class = "text-danger" })
+    </div>
+
+    <h4>Order Details</h4>
+
+    @for (int i = 0; i < Model.OrderDetails.Count; i++)
+    {
+        <div class="form-group">
+            @Html.HiddenFor(model => model.OrderDetails[i].OrderId)
+
+            <div class="row">
+                <div class="col-md-4">
+                    @Html.LabelFor(model => model.OrderDetails[i].ProductId, "Product", new { @class = "control-label" })
+                    @Html.TextBoxFor(model => model.OrderDetails[i].ProductId, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.OrderDetails[i].ProductId, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-4">
+                    @Html.LabelFor(model => model.OrderDetails[i].Quantity, "Quantity", new { @class = "control-label" })
+                    @Html.TextBoxFor(model => model.OrderDetails[i].Quantity, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.OrderDetails[i].Quantity, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-4">
+                    @Html.LabelFor(model => model.OrderDetails[i].Price, "Price", new { @class = "control-label" })
+                    @Html.TextBoxFor(model => model.OrderDetails[i].Price, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.OrderDetails[i].Price, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    }
+
+    <div class="form-group">
+        <input type="submit" value="Checkout" class="btn btn-primary" />
+    </div>
+}

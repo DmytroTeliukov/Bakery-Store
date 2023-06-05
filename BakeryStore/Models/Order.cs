@@ -9,7 +9,7 @@ namespace BakeryStore.Models
         [Key]
         public int Id { get; set; }
         public string Status { get; set; }
-        public DateTime Ordered { get; set; }
+        public DateTime Ordered { get; set; } = DateTime.Now;
         [ValidateNever]
         public virtual List<OrderDetail> OrderDetails { get; set; }
         public string UserId { get; set; }
