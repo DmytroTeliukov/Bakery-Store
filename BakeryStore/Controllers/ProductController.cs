@@ -30,15 +30,23 @@ namespace BakeryStore.Controllers
             return View("List", _products.SearchProductsByName(productName));
         }
 
-
-
         [HttpGet]
         public IActionResult Profile(int id)
         {
-
             return View(_products.GetProductById(id));
         }
 
+        [HttpGet]
+        public IActionResult About()
+        {
+            return View();
+        }       
+        
+        [HttpGet]
+        public IActionResult Contacts()
+        {
+            return View();
+        }
 
     }
 }
